@@ -1,0 +1,18 @@
+.admin__menu {
+    width: 250px;
+    background-color: rgba(54, 54, 54, 0.97);
+    min-height: calc(100vh - 57px);
+    color: white;
+    padding: 20px;
+}
+.admin__menu a:visited,
+.admin__menu a{
+    color: white;
+    display: block;
+}
+.admin__content {
+    width: calc(100% - 250px);
+    background-color: #e5e5e5;
+    min-height: calc(100vh - 57px);
+    padding: 20px;
+}

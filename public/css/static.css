@@ -1,0 +1,105 @@
+
+html, body {
+    background-color: #fff;
+    color: #636b6f;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.header__logo-img {
+    max-height: 50px;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0,0,0,.9);
+}
+.navbar-top {
+    -webkit-box-shadow: 0 3px 5px -3px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 3px 5px -3px rgba(0,0,0,.1);
+    -o-box-shadow: 0 3px 5px -3px rgba(0,0,0,.1);
+    /*box-shadow: 0px -1px 5px 0px rgba(0,0,0,.2);*/
+    box-shadow: 0 3px 5px -3px rgba(0,0,0,.1);
+}
+.navbar-top .nav-link {
+    font-weight: 600;
+    color: #032261 !important;
+}
+.img25 {
+    height: 25px;
+}
+.img20 {
+    height: 20px;
+}
+.img16 {
+    height: 16px;
+}
+
+.dropdown-toggle::after {
+    transition: transform 0.15s linear;
+}
+.show.dropdown .dropdown-toggle::after {
+    transform: translateY(3px);
+}
+.dropdown-menu {
+    margin-top: 0;
+    box-shadow: 0 13px 27px -5px rgba(50,50,93,0.25), 0 8px 16px -8px rgba(0,0,0,0.3), 0 -6px 16px -6px rgba(0,0,0,0.025);
+    border: none;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #003399;
+    border-color: #003399;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #002878;
+    border-color: #002878;
+    box-shadow: 0 4px 6px rgba(50,50,93,.21), 0 1px 3px rgba(0,0,0,.18);
+}
+.btn-rounded {
+    border-radius: 20px;
+}
+a {
+    color: #003399;
+}
+a:hover {
+    color: #032261;
+}
+
+.carousel-control-next-icon {
+    background-image: url('/img/icons/right-arrow_yellow.svg');
+}
+.carousel-control-prev-icon {
+    background-image: url('/img/icons/left-arrow_yellow.svg');
+}
+.carousel-caption {
+    color: #003399;
+    text-align: left;
+}
+.carousel-caption h5{
+    font-size: 50px;
+    font-weight: bold;
+}
+.carousel-caption p{
+    font-size: 30px;
+}
+.bg-warning {
+    background-color: #ff9933!important;
+}
+
+h1 {
+    padding: 40px 0 20px 0;
+}
+
+.lp-brands__img {
+    max-width: 200px;
+}
+
+
