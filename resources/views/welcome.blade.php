@@ -32,19 +32,12 @@
                 Это означает, что все программное обеспечение предлагаемое нами, действительно лицензионное, никакого «контрафакта» и «пиратского контента»,
                 на все товары распространяется гарантия производителя, а цены в нашем магазине соответствуют, рекомендованным производителем.
             </p>
-            <div class="text-center flex-center justify-content-between">
-                <a href="" class="lp-brands__link">
-                    <img src="{{ asset('img/logos/ascon.jpg') }}" class="rounded mx-auto d-block lp-brands__img" alt="ascon">
-                </a>
-                <a href="" class="lp-brands__link">
-                    <img src="{{ asset('img/logos/autodesk.jpg') }}" class="rounded mx-auto d-block lp-brands__img" alt="autodesk">
-                </a>
-                <a href="" class="lp-brands__link">
-                    <img src="{{ asset('img/logos/microsoft.jpg') }}" class="rounded mx-auto d-block lp-brands__img" alt="microsoft">
-                </a>
-                <a href="" class="lp-brands__link">
-                    <img src="{{ asset('img/logos/teamviewer.jpg') }}" class="rounded mx-auto d-block lp-brands__img" alt="ascon">
-                </a>
+            <div class="text-center flex-center justify-content-between flex-wrap">
+                @foreach($brands as $brand)
+                    <a href="" class="lp-brands__link">
+                        <img src="/uploads/{{ $brand['photo'] }}" class="rounded mx-auto d-block lp-brands__img" alt="{{ $brand['name'] }}">
+                    </a>
+                @endforeach
             </div>
         </div>
 

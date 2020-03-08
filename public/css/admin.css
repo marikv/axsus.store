@@ -9,10 +9,18 @@
 .admin__menu a{
     color: white;
     display: block;
+    margin-top: 10px;
+}
+.admin__menu a i{
+    margin-right: 10px;
 }
 .admin__content {
     width: calc(100% - 250px);
     background-color: #e5e5e5;
     min-height: calc(100vh - 57px);
     padding: 20px;
+}
+.old-price {
+    color: rgba(113,113,113,0.97);
+    text-decoration: line-through;
 }
