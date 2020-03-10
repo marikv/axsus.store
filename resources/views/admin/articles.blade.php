@@ -3,7 +3,7 @@
 @section('content')
 
 
-    <h1>Бренды</h1>
+    <h1>Статьи</h1>
 
     <div class="row mb-5">
         <div class="col-12">
@@ -16,13 +16,13 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content  bg-light">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Продукт</h5>
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Статья</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="itemForm" enctype="multipart/form-data" action="/adm/addOrSaveBrand">
+                    <form method="post" id="itemForm" enctype="multipart/form-data" action="/adm/addOrSaveArticle">
                         <input type="hidden" id="id" name="id" value="0"/>
                         <div class="form-group">
                             <label for="photo">изображение записи</label>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name">Наименование</label>
+                            <label for="name">Тема</label>
                             <input type="text" class="form-control" name="name" id="name">
                         </div>
                         <div class="form-group">
@@ -58,11 +58,6 @@
                             <textarea class="form-control" name="meta_description" id="meta_description"
                                       rows="3"></textarea>
                         </div>
-                        <h3>Settings</h3>
-                        <div class="form-group">
-                            <label for="name">Сортировка (sort_by)</label>
-                            <input type="text" class="form-control" name="order_by" id="order_by">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -82,26 +77,24 @@
         <tr>
             <th scope="col" data-col="id" style="width: 50px;">id</th>
             <th scope="col" data-col="photo" style="width: 200px;">фото</th>
-            <th scope="col" data-col="name">Наименование</th>
+            <th scope="col" data-col="name">Тема</th>
             <th scope="col" data-col="mini_description">Краткое описание</th>
-            <th scope="col" data-col="order_by" style="width: 50px;">Сорт.</th>
             <th scope="col" data-col="actions" style="width: 150px;"></th>
         </tr>
         </thead>
         <tbody>
         @foreach ($tableData['data'] as $row)
 
-            <tr id="trBrand{{ $row['id'] }}">
+            <tr id="trArticle{{ $row['id'] }}">
                 <td>{{ $row['id'] }}</td>
                 <td><img src="/uploads/{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
                 <td>{{ $row['name'] }}</td>
                 <td>{{ $row['mini_description'] }}</td>
-                <td>{{ $row['order_by'] }}</td>
                 <td>
                     <button class="btn btn-success" onclick="editItem({{json_encode($row)}})">
                         <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="btn btn-danger" onclick="deleteBrand({{ $row['id'] }})"><i
+                    <button class="btn btn-danger" onclick="deleteArticle({{ $row['id'] }})"><i
                             class="far fa-trash-alt"></i></button>
                 </td>
             </tr>

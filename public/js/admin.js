@@ -57,7 +57,10 @@ var ajaxSubmitForm = function (formId) {
     var form = $form[0];
     var url = $form.attr('action');
     var data = new FormData(form);
-    data.append('description', tinyMCE.get('description').getContent());
+    if (tinyMCE !== undefined && $form.find('.my-wysiwyg').length) {
+        var tinyMCEid = $form.find('.my-wysiwyg').attr('id');
+        data.append(tinyMCEid, tinyMCE.get(tinyMCEid).getContent());
+    }
     $("#btnSubmit").prop("disabled", true);
     $.ajax({
         type: $form.attr('method') ? $form.attr('method') : 'POST',
@@ -101,6 +104,52 @@ var deleteProduct = function (id) {
             data: { id },
             success: function (data) {
                 $("#trProduct" + id).remove();
+            },
+            error: function (e) {
+            }
+        });
+    }
+};
+
+var deletePage = function (id) {
+    if (confirm('Вы уверены что хотите удалить?')) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/adm/deletePage',
+            data: { id },
+            success: function (data) {
+                $("#trPage" + id).remove();
+            },
+            error: function (e) {
+            }
+        });
+    }
+};
+
+var deleteCarousel = function (id) {
+    if (confirm('Вы уверены что хотите удалить?')) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/adm/deleteCarousel',
+            data: { id },
+            success: function (data) {
+                $("#trCarousel" + id).remove();
+            },
+            error: function (e) {
+            }
+        });
+    }
+};
+
+
+var deleteFaq = function (id) {
+    if (confirm('Вы уверены что хотите удалить?')) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/adm/deleteFaq',
+            data: { id },
+            success: function (data) {
+                $("#trFaq" + id).remove();
             },
             error: function (e) {
             }

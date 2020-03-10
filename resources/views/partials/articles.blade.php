@@ -1,73 +1,46 @@
+
 <div style="background-color: #F2EFEC;padding-bottom: 30px;">
-
-    <div class="text-center">
-        <h1>Последние новости</h1>
+    <h1 class="text-center">{{$page3['name']}}</h1>
+    <div class="container" >
+        {!! $page3['description'] !!}
     </div>
 
-    <div class="container row m-auto position-relative">
-        <div class="article-for-img__circle"></div>
-        <div class="col-6 m-0 wrapper-article-mini" >
-            <h1>Тема номер 1</h1>
-            <p>
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-                text text
-            </p>
-            <a href="" class="btn btn-rounded btn-primary">Подробнее</a>
-        </div>
-        <div class="col-6 m-0 wrapper-article-for-img p-0">
-            <div class="article-for-img" style="background-image: url('http://transport-ue.md/wp-content/uploads/2019/11/osman-rana-9e4AkIRcaRI-unsplash-620x450.jpg')">
+    @foreach($lastArticles as $k => $article)
 
-            </div>
-        </div>
-    </div>
+        <div class="container row m-auto position-relative">
+            <div class="article-for-img__circle"></div>
+            @if ($k % 2 == 0)
+                <div class="col-6 m-0 wrapper-article-mini" >
+                    <h2>{{ $article['name'] }}</h2>
+                    <p>
+                        {!! $article['mini_description'] !!}
+                    </p>
+                    <a href="/article/{{ $article['id'] }}" class="btn btn-rounded btn-primary">Подробнее</a>
+                </div>
+                <div class="col-6 m-0 wrapper-article-for-img p-0">
+                    <div class="article-for-img"
+                         style="background-image: url('/uploads/{{ $article['photo'] }}')">
 
-    <div class="container row m-auto position-relative">
-        <div class="article-for-img__circle"></div>
-        <div class="col-6 m-0 wrapper-article-for-img p-0">
-            <div class="article-for-img" style="background-image: url('http://transport-ue.md/wp-content/uploads/2019/11/osman-rana-9e4AkIRcaRI-unsplash-620x450.jpg')">
+                    </div>
+                </div>
+            @else
+                <div class="col-6 m-0 wrapper-article-for-img p-0">
+                    <div class="article-for-img"
+                         style="background-image: url('/uploads/{{ $article['photo'] }}')">
 
-            </div>
+                    </div>
+                </div>
+                <div class="col-6 m-0 wrapper-article-mini" >
+                    <h2>{{ $article['name'] }}</h2>
+                    <p>
+                        {!! $article['mini_description'] !!}
+                    </p>
+                    <a href="/article/{{ $article['id'] }}" class="btn btn-rounded btn-primary">Подробнее</a>
+                </div>
+            @endif
         </div>
-        <div class="col-6 m-0 wrapper-article-mini" >
-            sdfg
-        </div>
-    </div>
+    @endforeach
 
-    <div class="container row m-auto position-relative">
-        <div class="article-for-img__circle"></div>
-        <div class="col-6 m-0 wrapper-article-mini" >
-            sdfg
-        </div>
-        <div class="col-6 m-0 wrapper-article-for-img p-0">
-            <div class="article-for-img" style="background-image: url('http://transport-ue.md/wp-content/uploads/2019/11/osman-rana-9e4AkIRcaRI-unsplash-620x450.jpg')">
-
-            </div>
-        </div>
-    </div>
-
-    <div class="container row m-auto position-relative">
-        <div class="article-for-img__circle"></div>
-        <div class="col-6 m-0 wrapper-article-for-img p-0">
-            <div class="article-for-img" style="background-image: url('http://transport-ue.md/wp-content/uploads/2019/11/osman-rana-9e4AkIRcaRI-unsplash-620x450.jpg')">
-
-            </div>
-        </div>
-        <div class="col-6 m-0 wrapper-article-mini" >
-            sdfg
-        </div>
-    </div>
 </div>
 
 <style>
@@ -80,6 +53,10 @@
         margin: 1em 0;
         line-height: 1.7;
         font-size: 20px;
+        max-height: 160px;
+        height: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .article-for-img__circle {
         position: absolute;
@@ -103,7 +80,6 @@
         background-position: center;
         background-size: cover;
         overflow: hidden;
-        background-image: url('http://media4.popsugar-assets.com/files/2014/08/08/878/n/1922507/caef16ec354ca23b_thumb_temp_cover_file32304521407524949.xxxlarge/i/Funny-Cat-GIFs.jpg');
         -webkit-transition: all 0.3s ease-in-out;
     }
 

@@ -85,7 +85,10 @@
                 <a href="/adm/clients"><i class="far fa-address-card"></i> Клиенты</a>
                 <a href="/adm/orders"><i class="fas fa-shopping-cart"></i> Заказы</a>
                 <a href="/adm/pages"><i class="far fa-file"></i> Страницы</a>
-                <a href="/adm/articles"><i class="far fa-newspaper"></i> Новости</a>
+                <a href="/adm/articles"><i class="fas fa-newspaper"></i> Новости</a>
+                <a href="/adm/carousels"><i class="far fa-images"></i> Фото Слайдер</a>
+                <a href="/adm/faqs"><i class="far fa-question-circle"></i> FAQ</a>
+                <a href="/adm/contacts"><i class="fas fa-envelope-open-text"></i> Контакты</a>
                 <a href="/adm/settings"><i class="fas fa-cogs"></i> Настройки</a>
             </div>
             <div class="admin__content">

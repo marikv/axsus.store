@@ -24,3 +24,9 @@
     color: rgba(113,113,113,0.97);
     text-decoration: line-through;
 }
+.text-gray {
+    color: #999999;
+}
+.text-bold {
+    font-weight: bold;
+}

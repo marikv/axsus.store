@@ -79,55 +79,52 @@
 <section id="footer">
     <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
+
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <h5>Quick links</h5>
+                <h5>Страницы</h5>
                 <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+                    @foreach($allPages as $k => $page)
+                        <li><a href="/page/{{$page['id']}}"><i class="fa fa-angle-double-right"></i>{{$page['name']}}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <h5>Quick links</h5>
+                <h5>Бренды</h5>
                 <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Videos</a></li>
+                    @foreach($allBrands as $k => $page)
+                        <li><a href="/brand/{{$page['id']}}"><i class="fa fa-angle-double-right"></i>{{$page['name']}}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <h5>Quick links</h5>
+                <h5>Другие</h5>
                 <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-                    <li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li>
+                    <li><a href="/"><i class="fa fa-angle-double-right"></i>Главная</a></li>
+                    <li><a href="/articles"><i class="fa fa-angle-double-right"></i>Новости</a></li>
+                    <li>@include('partials.search-box')</li>
                 </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
                 <ul class="list-unstyled list-inline social text-center">
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/axsusProjects"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="https://www.instagram.com/axsus_projects/"><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href="mailto:info@axsus.ru" target="_blank"><i class="fa fa-envelope"></i></a></li>
                 </ul>
             </div>
-            </hr>
+            <hr/>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                <p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p>
-                <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
+                <p>
+                    Внимание! Все права защищены законодательством РФ законом «об авторском праве и смежных правах».
+                    Любое копирование и использование текстов, статей, фотографий или иных материалов разрешено только при активной ссылки на первоисточник.
+                    Прежде чем принимать какие-либо решения, необходимо проконсультироваться с профессионалом.
+                </p>
+                <p class="h6">&copy All right Reversed. <a class="text-green ml-2" href="https://www.axsus.ru" target="_blank">AXSUS PROJECTS </a></p>
             </div>
-            </hr>
+            <hr/>
         </div>
     </div>
 </section>

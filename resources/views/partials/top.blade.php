@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="{{ asset('img/logo.png') }}" class="header__logo-img">
             </a>
         </div>
@@ -75,7 +75,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">О нас <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">О нас <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -100,10 +100,10 @@
                     <a class="nav-link" href="#">Autodesk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Новости</a>
+                    <a class="nav-link" href="/articles">Новости</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Контакты</a>
+                    <a class="nav-link" href="/#contacts">Контакты</a>
                 </li>
             </ul>
         </div>

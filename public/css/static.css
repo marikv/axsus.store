@@ -7,6 +7,9 @@ html, body {
     height: 100vh;
     margin: 0;
 }
+html{
+    scroll-behavior:smooth;
+}
 
 .flex-center {
     align-items: center;
@@ -66,9 +69,10 @@ html, body {
 .btn-rounded {
     border-radius: 20px;
 }
-a {
+.btn-link, a {
     color: #003399;
 }
+.btn-link:hover,
 a:hover {
     color: #032261;
 }
@@ -102,4 +106,7 @@ h1 {
     max-width: 200px;
 }
 
+.carousel-caption {
+    max-width: 600px;
+}
 
