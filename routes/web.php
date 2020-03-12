@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('homeIndex');
 Route::get('/articles', 'HomeController@articlesPage')->name('articlesPage');
 Route::get('/page/{id}', 'HomeController@pagePage')->where('id', '[0-9]+')->name('pagePage');
 Route::post('/send/addContactFromForm', 'HomeController@addContactFromForm')->name('addContactFromForm');
+Route::get('/brand/{id}', 'HomeController@brandPage')->where('id', '[0-9]+')->name('brandPage');
+Route::get('/article/{id}', 'HomeController@articlePage')->where('id', '[0-9]+')->name('articlePage');
 
 Route::get('/adm', 'AdminController@index')->name('admin');
 Route::get('/adm/products', 'AdminController@productsPage')->name('adminProductsGet');

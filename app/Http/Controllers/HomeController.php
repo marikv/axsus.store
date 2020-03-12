@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,22 @@ class HomeController extends Controller
         //$this->middleware('auth');
     }
 
+    private function forFooterAndMenu()
+    {
+//        if (!Cookie::get('LaravelShopCartId')) {
+//            $LaravelShopCartId = sha1('LaravelShopCartId'.time().rand(0, 9999999).uniqid());
+//            Cookie::queue('LaravelShopCartId', $LaravelShopCartId, 60 * 24 * 30 * 12);
+//            \cookie('LaravelShopCartId', $LaravelShopCartId, 60 * 24 * 30 * 12);
+//            dd($LaravelShopCartId);
+//        }
+
+        return [
+            'LaravelShopCartId' => '',
+            'allPages' => Page::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']),
+            'allBrands' => Brand::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']),
+            'allProducts' => Product::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name', 'brand_id']),
+        ];
+    }
     /**
      * Show the application dashboard.
      *
@@ -40,17 +57,19 @@ class HomeController extends Controller
         $selectPage4 = Page::whereNull('deleted')->where('id', 4)->first();//4 - Контакты
         $selectPage5 = Page::whereNull('deleted')->where('id', 5)->first();//5 - Вопросы/Ответы (FAQ)
         $selectLastArticles = Article::whereNull('deleted')->orderBy('id', 'desc')->paginate(4);
-        $allPages = Page::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']);
-        $allBrands = Brand::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']);
-        $allProducts = Product::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name', 'brand_id']);
+        $forFooterAndMenu = $this->forFooterAndMenu();
 
         return view('templateLandingPage')
-            ->with('allPages', $allPages)
-            ->with('allBrands', $allBrands)
-            ->with('allProducts', $allProducts)
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
             ->with('meta_title', $selectPage2->meta_title)
             ->with('meta_keywords', $selectPage2->meta_keywords)
             ->with('meta_description', $selectPage2->meta_description)
+
             ->with('page1', $selectPage1)
             ->with('page2', $selectPage2)
             ->with('page3', $selectPage3)
@@ -72,35 +91,82 @@ class HomeController extends Controller
         $select = Article::whereNull('deleted');
         $select = $this->standartPagination($select, $request);
         $selectPage3 = Page::whereNull('deleted')->where('id', 3)->first();
-        $allPages = Page::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']);
-        $allBrands = Brand::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']);
-        $allProducts = Product::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name', 'brand_id']);
+        $forFooterAndMenu = $this->forFooterAndMenu();
 
         return view('templateArticles')
-            ->with('allPages', $allPages)
-            ->with('allBrands', $allBrands)
-            ->with('allProducts', $allProducts)
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
             ->with('meta_title', $selectPage3->meta_title)
             ->with('meta_keywords', $selectPage3->meta_keywords)
             ->with('meta_description', $selectPage3->meta_description)
+
             ->with('articles', $select->toArray());
     }
 
     public function pagePage(Request $request)
     {
         $selectPage = Page::whereNull('deleted')->where('id', $request->route('id'))->first();
-        $allPages = Page::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']);
-        $allBrands = Brand::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name']);
-        $allProducts = Product::whereNull('deleted')->orderBy('order_by', 'asc')->get(['id', 'name', 'brand_id']);
+        $forFooterAndMenu = $this->forFooterAndMenu();
 
         return view('templatePage')
-            ->with('allPages', $allPages)
-            ->with('allBrands', $allBrands)
-            ->with('allProducts', $allProducts)
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
             ->with('meta_title', $selectPage->meta_title)
             ->with('meta_keywords', $selectPage->meta_keywords)
             ->with('meta_description', $selectPage->meta_description)
+
             ->with('page', $selectPage);
+    }
+
+    public function brandPage(Request $request)
+    {
+        $selectBrand = Brand::whereNull('deleted')->where('id', $request->route('id'))->first();
+
+        $select = Product::whereNull('deleted')->where('brand_id', $request->route('id'));
+        $select = $this->standartPagination($select, $request);
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateBrand')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', $selectBrand->meta_title)
+            ->with('meta_keywords', $selectBrand->meta_keywords)
+            ->with('meta_description', $selectBrand->meta_description)
+
+            ->with('brand', $selectBrand)
+            ->with('products', $select->toArray());
+    }
+
+    public function articlePage(Request $request)
+    {
+        $selectArticle = Article::whereNull('deleted')->where('id', $request->route('id'))->first();
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateArticle')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', $selectArticle->meta_title)
+            ->with('meta_keywords', $selectArticle->meta_keywords)
+            ->with('meta_description', $selectArticle->meta_description)
+
+            ->with('article', $selectArticle);
     }
 
     /**

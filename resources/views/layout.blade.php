@@ -17,6 +17,11 @@
 
     <link href="{{asset('css/static.css')}}" rel="stylesheet">
     <!-- Styles -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script>
+        var LaravelShopCartId = '{{ $LaravelShopCartId ?? '' }}';
+    </script>
+
 </head>
 <body>
 
@@ -27,7 +32,6 @@
 @include('partials.footer')
 
 
-<script src="/js/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -144,6 +148,43 @@
             }
         })
     }
+
+
+
+    function addToCard(id) {
+
+    }
+
+    $("#loginForm, #registerForm").submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var idForm = $(this).attr('id');
+        var url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function(data) {
+                if (data.success) {
+                    document.location.reload();
+                } else {
+                    $('#'+idForm+'Alert').removeClass('hidden').html(data.data);
+                }
+            },
+            error: function(data) {
+                if (data.responseJSON && data.responseJSON.errors) {
+                    $('.invalid-feedback-my').remove();
+                    for (var property in data.responseJSON.errors) {
+                        if (data.responseJSON.errors.hasOwnProperty(property)) {
+                            $('#'+idForm+'_'+property).addClass('is-invalid').after('<span class="invalid-feedback invalid-feedback-my" role="alert">\n' +
+                                '                                        <strong>'+data.responseJSON.errors[property].join('; ') + '</strong>\n' +
+                                '                                    </span>');
+                        }
+                    }
+                }
+            },
+        });
+    });
 </script>
 </body>
 </html>

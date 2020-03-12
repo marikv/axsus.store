@@ -33,6 +33,13 @@ html{
     font-weight: 600;
     color: #032261 !important;
 }
+
+.mega-menu{width: 800px; overflow: hidden; padding: 20px;}
+.mega-menu .sub-menu-heading { font-weight: bold; font-size: 18px;margin: 10px 0 7px;}
+@media(max-width:799px){
+    .mega-menu{width: 100%;}
+}
+
 .img25 {
     height: 25px;
 }
@@ -110,3 +117,10 @@ h1 {
     max-width: 600px;
 }
 
+.argon-shadow {
+    border: none;
+    box-shadow: 0 15px 35px rgba(50,50,93,.08),0 5px 15px rgba(0,0,0,.06)!important;
+}
+.hidden {
+    display: none;
+}

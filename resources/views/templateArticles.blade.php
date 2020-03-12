@@ -2,24 +2,29 @@
 
 @section('content')
 
-    @foreach($articles['data'] as $k => $article)
+    <div style="background-color: rgba(193,193,193,0.2);padding: 30px;">
 
-        <div class="container row m-auto position-relative">
-            <div class="article-for-img__circle"></div>
-                <div class="col-6 m-0 wrapper-article-mini" >
-                    <h2>{{ $article['name'] }}</h2>
-                    <p>
-                        {!! $article['mini_description'] !!}
-                    </p>
-                    <a href="/article/{{ $article['id'] }}" class="btn btn-rounded btn-primary">Подробнее</a>
-                </div>
-                <div class="col-6 m-0 wrapper-article-for-img p-0">
-                    <div class="article-for-img"
-                         style="background-image: url('/uploads/{{ $article['photo'] }}')">
-
+        @foreach($articles['data'] as $k => $article)
+            <div class="container pb-5">
+                <div class="card argon-shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="/uploads/{{ $article['photo'] }}" style="max-width: 100%;" />
+                            </div>
+                            <div class="col-md-8">
+                                <h2><a href="/article/{{ $article['id'] }}">{{ $article['name'] }}</a></h2>
+                                <div>
+                                    {!! $article['mini_description'] !!}
+                                </div>
+                                <a href="/article/{{ $article['id'] }}" class="btn btn-rounded btn-primary">Подробнее</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-        </div>
-    @endforeach
+            </div>
+        @endforeach
+
+    </div>
 
 @endsection
