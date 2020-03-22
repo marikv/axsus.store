@@ -51,11 +51,16 @@ class AdminController extends Controller
     public function productsPage(Request $request)
     {
         $select = Product::with('brand')->whereNull('deleted');
+
         $select = $this->standartPagination($select, $request);
         $selectBrands = Brand::whereNull('deleted')->orderBy('name', 'asc')->paginate(999999999);
+        $categories = Category::whereNull('deleted')->orderBy('name', 'asc')->paginate(999999999);
+
+
         return view('admin.products')
             ->with('tableData', $select->toArray())
-            ->with('brands', $selectBrands->toArray());
+            ->with('brands', $selectBrands->toArray())
+            ->with('categories', $categories->toArray());
     }
 
     /**
@@ -145,6 +150,8 @@ class AdminController extends Controller
 
                 $model->brand_id = $request->brand_id;
                 $model->name = $request->name;
+                $model->article = $request->article;
+                $model->category_id = $request->category_id;
                 $model->mini_description = $request->mini_description;
                 $model->description = $request->description;
                 $model->meta_title = $request->meta_title;
@@ -358,7 +365,7 @@ class AdminController extends Controller
             ]);
             $fileName = date('YmdHis').'.'.$request->file('photo')->extension();
             $request->file('photo')->move(public_path('uploads'), $fileName);
-            return $fileName;
+            return '/uploads/' . $fileName;
         }
 
         return '';

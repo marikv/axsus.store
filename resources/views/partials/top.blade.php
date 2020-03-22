@@ -73,8 +73,10 @@
                 @endif
             </div>
             <div class="float-right text-right">
-                <img src="{{ asset('img/icons/cart-alt.svg') }}" class="img25">
-                0 шт. - 0 р.
+                <a href="/cart-checkout">
+                    <img src="{{ asset('img/icons/cart-alt.svg') }}" class="img25">
+                    <span class="cart-count">0</span> шт. - <span class="cart-total">0</span> р.
+                </a>
             </div>
         </div>
     </div>
@@ -128,6 +130,9 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="/articles">Новости</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart-checkout">Корзина</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/#contacts">Контакты</a>

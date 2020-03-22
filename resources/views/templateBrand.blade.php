@@ -8,7 +8,7 @@
             <div class="col-12 ">
                 <h1 class="text-center">{{ $brand['name'] }}</h1>
                 <div style="padding-bottom: 150px;">
-                    <img src="/uploads/{{$brand['photo']}}" class="img-fluid" style="height: 250px; float: left;"/>
+                    <img src="{{$brand['photo']}}" class="img-fluid" style="height: 250px; float: left;"/>
                     {!! $brand['description'] !!}
                 </div>
             </div>

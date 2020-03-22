@@ -73,8 +73,44 @@ html{
     border-color: #002878;
     box-shadow: 0 4px 6px rgba(50,50,93,.21), 0 1px 3px rgba(0,0,0,.18);
 }
+.btn-outline-primary {
+    color: #003399;
+    background-color: #fff;
+    border-color: #003399;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+.btn-outline-primary:hover {
+    color: #002878;
+    background-color: #fffdfd;
+    border-color: #002878;
+    box-shadow: 0 4px 6px rgba(50,50,93,.21), 0 1px 3px rgba(0,0,0,.18);
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show>.btn-outline-primary.dropdown-toggle {
+    color: #002878;
+    background-color: #fffdfd;
+    border-color: #002878;
+    box-shadow: 0 4px 6px rgba(50,50,93,.21), 0 1px 3px rgba(0,0,0,.18);
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-outline-primary.dropdown-toggle:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus,
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.show>.btn-success.dropdown-toggle:focus{
+    outline: none;
+    box-shadow: 0 4px 6px rgba(50,50,93,.31), 0 1px 3px rgba(0,0,0,.38);
+}
+
 .btn-rounded {
     border-radius: 20px;
+}
+.btn-lg.btn-rounded {
+    border-radius: 30px;
 }
 .btn-link, a {
     color: #003399;
@@ -123,4 +159,48 @@ h1 {
 }
 .hidden {
     display: none;
+}
+.btn-cart-type-of-order {
+    min-width: 200px;
+}
+.btn-cart-type-of-order__wrapper {
+    margin: 20px auto 40px;
+}
+
+.form-control {
+    transition: all .15s ease;
+}
+.form-control, label {
+    font-size: .875rem;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.25rem + 2px);
+    padding: .625rem .75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #8898aa;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #cad1d7;
+    border-radius: .25rem;
+    box-shadow: none;
+    transition: all .2s cubic-bezier(.68,-.55,.265,1.55);
+}
+.form-control-alternative {
+    box-shadow: 0 1px 3px rgba(50,50,93,.15), 0 1px 0 rgba(0,0,0,.02);
+    border: 0;
+    transition: box-shadow .15s ease;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: rgba(234, 234, 234, 0.89);
+    outline: 0;
+    box-shadow: 1px 2px 12px 1px rgba(158, 158, 158, 0.07);
+}
+.card-product__old-price {
+    color: rgba(113,113,113,0.5);
+    text-decoration: line-through;
 }

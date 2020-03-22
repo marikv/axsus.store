@@ -19,14 +19,14 @@
                 </div>
                 <div class="col-6 m-0 wrapper-article-for-img p-0">
                     <div class="article-for-img"
-                         style="background-image: url('/uploads/{{ $article['photo'] }}')">
+                         style="background-image: url('{{ $article['photo'] }}')">
 
                     </div>
                 </div>
             @else
                 <div class="col-6 m-0 wrapper-article-for-img p-0">
                     <div class="article-for-img"
-                         style="background-image: url('/uploads/{{ $article['photo'] }}')">
+                         style="background-image: url('{{ $article['photo'] }}')">
 
                     </div>
                 </div>

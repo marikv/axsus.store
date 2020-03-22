@@ -37,7 +37,7 @@ var editItem = function (jsonData) {
                     var $img = $('img#'+key+'_img');
                     if ($img.length > 0) {
                         if (value) {
-                            $img.attr('src', '/uploads/'+value);
+                            $img.attr('src', value);
                         } else {
                             $img.attr('src', '/uploads/no-image.png');
                         }

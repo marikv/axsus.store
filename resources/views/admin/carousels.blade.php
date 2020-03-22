@@ -85,7 +85,7 @@
 
             <tr id="trCarousel{{ $row['id'] }}">
                 <td>{{ $row['id'] }}</td>
-                <td><img src="/uploads/{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
+                <td><img src="{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
                 <td>{{ $row['name'] }}</td>
                 <td>{{ $row['description'] }}</td>
                 <td>{{ $row['link'] }}</td>

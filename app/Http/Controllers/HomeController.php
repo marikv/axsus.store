@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Brand;
 use App\Models\Carousel;
+use App\Models\Cart;
 use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Page;
@@ -169,6 +170,30 @@ class HomeController extends Controller
             ->with('article', $selectArticle);
     }
 
+
+    public function cartPage(Request $request)
+    {
+        $selectCart = Cart::whereNull('deleted')
+            ->whereNull('bought')
+            ->with('product')
+            ->where('cart_id', Cart::currentCartId())
+            ->get();
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateCart')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', 'Корзина покупателя')
+            ->with('meta_keywords', '')
+            ->with('meta_description', '')
+
+            ->with('items', $selectCart);
+    }
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

@@ -93,7 +93,7 @@
 
             <tr id="trBrand{{ $row['id'] }}">
                 <td>{{ $row['id'] }}</td>
-                <td><img src="/uploads/{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
+                <td><img src="{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
                 <td>{{ $row['name'] }}</td>
                 <td>{{ $row['mini_description'] }}</td>
                 <td>{{ $row['order_by'] }}</td>

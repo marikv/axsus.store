@@ -1,6 +1,6 @@
 <div class="form-group form-search flex-center justify-content-center">
     <meta itemprop="target" content="/search?q={q}">
-    <input name="q" id="q" value="" class="form-control form-control-search" placeholder="Поиск"
+    <input name="q" value="" class="form-control form-control-search" placeholder="Поиск"
            itemprop="query-input">
     <button type="submit" name="button" class="btn btn-white btn-round btn-submit">
         <img src="{{asset('img/icons/search-2.svg')}}" style="height: 18px">

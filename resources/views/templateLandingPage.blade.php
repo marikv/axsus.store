@@ -11,7 +11,7 @@
         <div class="container text-center flex-center justify-content-between flex-wrap">
             @foreach($brands as $brand)
                 <a href="/brand/{{ $brand['id'] }}" class="lp-brands__link">
-                    <img src="/uploads/{{ $brand['photo'] }}" class="rounded mx-auto d-block lp-brands__img" alt="{{ $brand['name'] }}">
+                    <img src="{{ $brand['photo'] }}" class="rounded mx-auto d-block lp-brands__img" alt="{{ $brand['name'] }}">
                 </a>
             @endforeach
         </div>

@@ -9,7 +9,7 @@
         @foreach($carousels as $k => $carousel)
             <div class="carousel-item @if ($k === 0) active @endif">
                 <div  class="d-block w-100" style="height: 70vh;background-size:cover;background-position: center center;
-                background-image: url('/uploads/{{ $carousel['photo'] }}')">
+                background-image: url('{{ $carousel['photo'] }}')">
                 </div>
 
                 <div class="carousel-caption d-none d-md-block">

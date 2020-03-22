@@ -25,6 +25,14 @@ Route::post('/send/addContactFromForm', 'HomeController@addContactFromForm')->na
 Route::get('/brand/{id}', 'HomeController@brandPage')->where('id', '[0-9]+')->name('brandPage');
 Route::get('/article/{id}', 'HomeController@articlePage')->where('id', '[0-9]+')->name('articlePage');
 
+
+Route::post('/cart/{id}', 'CartController@addItem');
+Route::post('/cart/checkout/{id}', 'CartController@addOrder');
+Route::get('/cart/{id}', 'CartController@getItems');
+Route::delete('/cart/{id}', 'CartController@deleteItem');
+Route::get('/cart-checkout', 'HomeController@cartPage')->name('cartPage');
+
+
 Route::get('/adm', 'AdminController@index')->name('admin');
 Route::get('/adm/products', 'AdminController@productsPage')->name('adminProductsGet');
 Route::get('/adm/brands', 'AdminController@brandsPage')->name('adminBrandsGet');

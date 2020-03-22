@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="/uploads/{{ $article['photo'] }}" style="max-width: 100%;" />
+                                <img src="{{ $article['photo'] }}" style="max-width: 100%;" />
                             </div>
                             <div class="col-md-8">
                                 <h2><a href="/article/{{ $article['id'] }}">{{ $article['name'] }}</a></h2>

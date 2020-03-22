@@ -23,25 +23,49 @@
                 <div class="modal-body">
                     <form method="post" id="itemForm" enctype="multipart/form-data" action="/adm/addOrSaveProduct">
                         <input type="hidden" id="id" name="id" value="0"/>
-                        <div class="form-group">
-                            <label for="photo">изображение записи</label>
-                            <div>
-                                <img id="photo_img" src="/uploads/no-image.png" style="height: 90px;"/>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="photo">изображение записи</label>
+                                    <div>
+                                        <img id="photo_img" src="/uploads/no-image.png" style="height: 90px;"/>
 
-                                <input type="file" name="photo" id="photo" placeholder=""/>
+                                        <input type="file" name="photo" id="photo" placeholder=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name">Категория</label>
+                                    <select class="form-control" name="category_id" id="category_id">
+                                        @foreach ($categories['data'] as $row)
+                                            <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name">Наименование</label>
                             <input type="text" class="form-control" name="name" id="name">
                         </div>
-                        <div class="form-group">
-                            <label for="name">Бренд</label>
-                            <select class="form-control" name="brand_id" id="brand_id">
-                                @foreach ($brands['data'] as $row)
-                                    <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name">Бренд</label>
+                                    <select class="form-control" name="brand_id" id="brand_id">
+                                        @foreach ($brands['data'] as $row)
+                                            <option value="{{ $row['id'] }}">{{ $row['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name">Артикул</label>
+                                    <input type="text" class="form-control" name="article" id="article">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="name">Краткое описание</label>
@@ -102,6 +126,7 @@
             <th scope="col" data-col="id" style="width: 50px;">id</th>
             <th scope="col" data-col="photo" style="width: 200px;">фото</th>
             <th scope="col" data-col="brand_id">Бренд</th>
+            <th scope="col" data-col="article">Артикул</th>
             <th scope="col" data-col="name">Наименование</th>
             <th scope="col" data-col="mini_description">Краткое описание</th>
             <th scope="col" data-col="price" style="width: 100px;">Цена</th>
@@ -113,8 +138,9 @@
         @foreach ($tableData['data'] as $row)
             <tr id="trProduct{{ $row['id'] }}">
                 <td >{{ $row['id'] }}</td>
-                <td><img src="/uploads/{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
+                <td><img src="{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
                 <td>{{ $row['brand']['name'] ?? '' }}</td>
+                <td>{{ $row['article'] }}</td>
                 <td>{{ $row['name'] }}</td>
                 <td>{{ $row['mini_description'] }}</td>
                 <td>
