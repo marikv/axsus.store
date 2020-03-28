@@ -126,6 +126,7 @@ class CartController extends Controller
                 $orderModel->comment = $request->post('comment');
                 $orderModel->discount = 0;
                 $orderModel->sum = 0;
+                $orderModel->is_new = 1;
                 $orderModel->save();
 
                 $cartModels = Cart::select('id', 'product_id', 'count', 'price')

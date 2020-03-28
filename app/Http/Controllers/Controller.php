@@ -18,8 +18,8 @@ class Controller extends BaseController
 
         if ($request->pagination['sortBy']) {
             $s = $s->orderBy(
-                strval($request->pagination['sortBy']),
-                boolval($request->pagination['descending']) ? 'desc' : 'asc'
+                (string)($request->pagination['sortBy']),
+                (boolean)($request->pagination['descending']) ? 'desc' : 'asc'
             );
         } else {
             $s = $s->orderBy('order_by', 'asc')->orderBy('id', 'desc');
@@ -28,7 +28,7 @@ class Controller extends BaseController
         if ($request->pagination['rowsPerPage'] > 0) {
             $s = $s->paginate($request->pagination['rowsPerPage'], ['*'], 'page', $request->pagination['page']);
         } else {
-            $s = $s->paginate(999999999);
+            $s = $s->paginate(50);
         }
         return $s;
     }

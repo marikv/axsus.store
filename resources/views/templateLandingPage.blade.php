@@ -8,7 +8,7 @@
         <div class="container" >
             {!! $page1['description'] !!}
         </div>
-        <div class="container text-center flex-center justify-content-between flex-wrap">
+        <div class="container text-center flex-center justify-content-around flex-wrap">
             @foreach($brands as $brand)
                 <a href="/brand/{{ $brand['id'] }}" class="lp-brands__link">
                     <img src="{{ $brand['photo'] }}" class="rounded mx-auto d-block lp-brands__img" alt="{{ $brand['name'] }}">

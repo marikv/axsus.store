@@ -85,7 +85,7 @@
         <tbody>
         @foreach ($tableData['data'] as $row)
 
-            <tr id="trPage{{ $row['id'] }}">
+            <tr id="trItem{{ $row['id'] }}">
                 <td>{{ $row['id'] }}</td>
 {{--                <td><img src="/uploads/{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>--}}
                 <td>{{ $row['name'] }}</td>
@@ -94,7 +94,7 @@
                     <button class="btn btn-success" onclick="editItem({{json_encode($row)}})">
                         <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="btn btn-danger" onclick="deletePage({{ $row['id'] }})"><i
+                    <button class="btn btn-danger" onclick="deleteItem('Page', {{ $row['id'] }})"><i
                             class="far fa-trash-alt"></i></button>
                 </td>
             </tr>

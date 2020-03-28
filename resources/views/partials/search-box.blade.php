@@ -14,14 +14,14 @@
         position: relative;
     }
     .form-search .form-control-search {
-        background-color: rgb(248, 247, 253);
+        /*background-color: rgb(248, 247, 253);*/
         box-shadow: none;
-        border: 1px solid #cccccc;
+        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 30px;
         box-shadow: 0 0 0;
         display: block;
         font-weight: 300;
-        /* height: 40px; */
+        height: 33px;
         /* line-height: 1.42857; */
         padding: 6px 20px;
         vertical-align: middle;
@@ -31,7 +31,7 @@
         position: absolute;
         right: 18px;
         border: none;
-        height: 44px;
+        height: 36px;
         line-height: 30px;
         width: 44px;
         display: block;

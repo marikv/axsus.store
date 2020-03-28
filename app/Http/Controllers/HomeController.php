@@ -10,6 +10,7 @@ use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -83,6 +84,54 @@ class HomeController extends Controller
     }
 
 
+
+    public function brandPage(Request $request)
+    {
+        $selectBrand = Brand::whereNull('deleted')->where('id', $request->route('id'))->first();
+
+        $select = ProductGroup::whereNull('deleted')->where('brand_id', $request->route('id'));
+        $select = $this->standartPagination($select, $request);
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateBrand')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', $selectBrand->meta_title)
+            ->with('meta_keywords', $selectBrand->meta_keywords)
+            ->with('meta_description', $selectBrand->meta_description)
+
+            ->with('brand', $selectBrand)
+            ->with('productGroups', $select->toArray());
+    }
+    public function productGroupPage(Request $request)
+    {
+        $selectProductGroup = ProductGroup::whereNull('deleted')->where('id', $request->route('id'))->first();
+
+        $select = Product::whereNull('deleted')->where('product_group_id', $request->route('id'));
+        $select = $this->standartPagination($select, $request);
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateProductGroup')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', $selectProductGroup->meta_title)
+            ->with('meta_keywords', $selectProductGroup->meta_keywords)
+            ->with('meta_description', $selectProductGroup->meta_description)
+
+            ->with('productGroup', $selectProductGroup)
+            ->with('products', $select->toArray());
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -126,31 +175,6 @@ class HomeController extends Controller
 
             ->with('page', $selectPage);
     }
-
-    public function brandPage(Request $request)
-    {
-        $selectBrand = Brand::whereNull('deleted')->where('id', $request->route('id'))->first();
-
-        $select = Product::whereNull('deleted')->where('brand_id', $request->route('id'));
-        $select = $this->standartPagination($select, $request);
-
-        $forFooterAndMenu = $this->forFooterAndMenu();
-
-        return view('templateBrand')
-
-            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
-            ->with('allPages', $forFooterAndMenu['allPages'])
-            ->with('allBrands', $forFooterAndMenu['allBrands'])
-            ->with('allProducts', $forFooterAndMenu['allProducts'])
-
-            ->with('meta_title', $selectBrand->meta_title)
-            ->with('meta_keywords', $selectBrand->meta_keywords)
-            ->with('meta_description', $selectBrand->meta_description)
-
-            ->with('brand', $selectBrand)
-            ->with('products', $select->toArray());
-    }
-
     public function articlePage(Request $request)
     {
         $selectArticle = Article::whereNull('deleted')->where('id', $request->route('id'))->first();
@@ -194,6 +218,7 @@ class HomeController extends Controller
 
             ->with('items', $selectCart);
     }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

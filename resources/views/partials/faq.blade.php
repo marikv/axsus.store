@@ -12,7 +12,7 @@
 
             @foreach($faqs as $k => $faq)
                 <div class="card">
-                    <div class="card-header" id="heading{{ $k }}">
+                    <div class="card-header card-header-lp" id="heading{{ $k }}">
                         <h2 class="mb-0">
                             <button class="btn btn-link btn-block text-left"
                                     style="font-size: 20px;font-weight: bold;"

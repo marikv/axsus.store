@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 flex-center">
             <table style="border-collapse: collapse;" border="0">
                 <tbody>
                 <tr>
@@ -74,7 +74,7 @@
             </div>
             <div class="float-right text-right">
                 <a href="/cart-checkout">
-                    <img src="{{ asset('img/icons/cart-alt.svg') }}" class="img25">
+                    <img src="{{ asset('img/icons/cart-alt.svg') }}" class="img20 mr-2"/>
                     <span class="cart-count">0</span> шт. - <span class="cart-total">0</span> р.
                 </a>
             </div>
@@ -159,7 +159,7 @@
                     <div class="form-group row">
                         <label for="loginForm_email" class="col-md-4 col-form-label text-md-right">Email:</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="loginForm_email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
@@ -173,7 +173,7 @@
                     <div class="form-group row">
                         <label for="loginForm_password" class="col-md-4 col-form-label text-md-right">Пароль:</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="loginForm_password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                             @error('password')
@@ -244,7 +244,7 @@
                     <div class="form-group row">
                         <label for="registerForm_name" class="col-md-4 col-form-label text-md-right">ФИО</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="registerForm_name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                    value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -259,7 +259,7 @@
                     <div class="form-group row">
                         <label for="registerForm_email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="registerForm_email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                             @error('email')
@@ -273,7 +273,7 @@
                     <div class="form-group row">
                         <label for="registerForm_password" class="col-md-4 col-form-label text-md-right">Пароль</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="registerForm_password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                             @error('password')
@@ -287,7 +287,7 @@
                     <div class="form-group row">
                         <label for="registerForm_password-confirm" class="col-md-4 col-form-label text-md-right">Подтвердите Пароль</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="registerForm_password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                         </div>
                     </div>

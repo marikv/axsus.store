@@ -31,9 +31,18 @@ html{
 }
 .navbar-top .nav-link {
     font-weight: 600;
-    color: #032261 !important;
+    color: #022b86 !important;
+    font-size: 18px;
 }
-
+.navbar-top .navbar-nav > li.nav-item {
+    padding: 0 13px;
+}
+.card-header-lp {
+    background-color: #ffffff;
+}
+.text-primary {
+    color: #022b86 !important;
+}
 .mega-menu{width: 800px; overflow: hidden; padding: 20px;}
 .mega-menu .sub-menu-heading { font-weight: bold; font-size: 18px;margin: 10px 0 7px;}
 @media(max-width:799px){
@@ -203,4 +212,9 @@ h1 {
 .card-product__old-price {
     color: rgba(113,113,113,0.5);
     text-decoration: line-through;
+}
+.brand-image {
+    height: 250px;
+    float: left;
+    margin-right: 20px;
 }

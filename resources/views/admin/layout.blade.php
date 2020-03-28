@@ -81,7 +81,9 @@
         <div style="display: flex;flex-wrap: nowrap;">
             <div class="admin__menu">
                 <a href="/adm/brands"><i class="far fa-copyright"></i> Бренды</a>
-                <a href="/adm/products"><i class="fas fa-cubes"></i> Продукты</a>
+                <a href="/adm/product-groups"><i class="fas fa-cubes"></i> Продукты</a>
+                <a href="/adm/products"><i class="fas fa-cubes"></i> Варианты поставки</a>
+                <a href="/adm/categories"><i class="fas fa-stream"></i> Категории</a>
                 <a href="/adm/clients"><i class="far fa-address-card"></i> Клиенты</a>
                 <a href="/adm/orders"><i class="fas fa-shopping-cart"></i> Заказы</a>
                 <a href="/adm/pages"><i class="far fa-file"></i> Страницы</a>
