@@ -26,6 +26,7 @@ Route::get('/brand/{id}', 'HomeController@brandPage')->where('id', '[0-9]+')->na
 Route::get('/product-group/{id}', 'HomeController@productGroupPage')->where('id', '[0-9]+')->name('productGroupPage');
 Route::get('/category/{id}', 'HomeController@categoryPage')->where('id', '[0-9]+')->name('categoryPage');
 Route::get('/article/{id}', 'HomeController@articlePage')->where('id', '[0-9]+')->name('articlePage');
+Route::get('/magazin', 'HomeController@magazinPage')->name('magazinPage');
 
 
 Route::post('/cart/{id}', 'CartController@addItem');

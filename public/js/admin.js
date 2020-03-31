@@ -34,7 +34,8 @@ var showHideProductGroupOptions = function () {
 };
 var editItem = function (jsonData) {
 
-    $('.itemModal').find('form').find('input[type="text"]').each(function () {
+    var $form = $('.itemModal').find('form');
+    $form.find('input[type="text"]').each(function () {
         if ($(this).attr('data-default-value')) {
             $(this).val($(this).attr('data-default-value'));
         } else {
@@ -42,15 +43,15 @@ var editItem = function (jsonData) {
         }
     });
 
-    $('.itemModal').find('form').find('input[type="number"]').val('');
-    $('.itemModal').find('form').find('input[type="email"]').val('');
-    $('.itemModal').find('form').find('input[type="file"]').val('');
-    $('.itemModal').find('form').find('input[type="hidden"]').val('');
-    $('.itemModal').find('form').find('input[type="checkbox"]').attr('checked', false);
-    $('.itemModal').find('form').find('input[type="radio"]').attr('checked', false);
-    $('.itemModal').find('form').find('select').val('');
-    $('.itemModal').find('form').find('textarea').val('');
-    $('.itemModal').find('form').find('#photo_img').attr('src', '/uploads/no-image.png');
+    $form.find('input[type="number"]').val('');
+    $form.find('input[type="email"]').val('');
+    $form.find('input[type="file"]').val('');
+    $form.find('input[type="hidden"]').val('');
+    $form.find('input[type="checkbox"]').attr('checked', false);
+    $form.find('input[type="radio"]').attr('checked', false);
+    $form.find('select').val('');
+    $form.find('textarea').val('');
+    $form.find('#photo_img').attr('src', '/uploads/no-image.png');
 
     var setValues = function() {
         $.each(jsonData, function(key, value) {

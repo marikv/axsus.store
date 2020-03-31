@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
  * Class ProductGroup
  * @package App\Models
  *
- *
+ * @method static self findOrFail(integer $id)
+ * @method static self whereNull(string $column_name)
  * @property integer $brand_id
  * @property string $photo
  * @property string $name

@@ -96,30 +96,34 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">О нас <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Магазин
-                    </a>
-                    <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown">
-                        <div class="row">
-                            @foreach($allBrands as $k => $brand)
-                                <div class="col-md-3">
-                                    <a href="/brand/{{$brand['id']}}">
-                                        <strong class="sub-menu-heading">
-                                            <i class="fa fa-angle-double-right"></i>
-                                            {{$brand['name']}}
-                                        </strong>
-                                    </a>
-                                    @foreach($allProducts as $kk => $productIt)
-                                        @if ($productIt['brand_id'] == $brand['id'])
-                                            <div><a href="/product/{{$productIt['id']}}">- {{$productIt['name']}}</a></div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+{{--                <li class="nav-item dropdown">--}}
+{{--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"--}}
+{{--                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                        Магазин--}}
+{{--                    </a>--}}
+{{--                    <div class="dropdown-menu mega-menu" aria-labelledby="navbarDropdown">--}}
+{{--                        <div class="row">--}}
+{{--                            @foreach($allBrands as $k => $brand)--}}
+{{--                                <div class="col-md-3">--}}
+{{--                                    <a href="/brand/{{$brand['id']}}">--}}
+{{--                                        <strong class="sub-menu-heading">--}}
+{{--                                            <i class="fa fa-angle-double-right"></i>--}}
+{{--                                            {{$brand['name']}}--}}
+{{--                                        </strong>--}}
+{{--                                    </a>--}}
+{{--                                    @foreach($allProducts as $kk => $productIt)--}}
+{{--                                        @if ($productIt['brand_id'] == $brand['id'])--}}
+{{--                                            <div><a href="/product/{{$productIt['id']}}">- {{$productIt['name']}}</a></div>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </li>--}}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/magazin">Магазин</a>
                 </li>
 
                 @foreach($allBrands as $k => $brand)

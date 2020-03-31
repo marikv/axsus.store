@@ -305,4 +305,17 @@
         </tbody>
     </table>
     {!! $tablePagination !!}
+
+
+    <script>
+        $('.itemModal').find('input,textarea').on('keyup', function () {
+            $(this).addClass('input-visited');
+        })
+    </script>
+    <style>
+        .input-visited {
+            box-shadow: 0 0 7px #4caf505c;
+            background-color: #f2fff5;
+        }
+    </style>
 @endsection

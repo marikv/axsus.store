@@ -84,7 +84,10 @@ class HomeController extends Controller
     }
 
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function brandPage(Request $request)
     {
         $selectBrand = Brand::whereNull('deleted')->where('id', $request->route('id'))->first();
@@ -108,6 +111,11 @@ class HomeController extends Controller
             ->with('brand', $selectBrand)
             ->with('productGroups', $select->toArray());
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function productGroupPage(Request $request)
     {
         $selectProductGroup = ProductGroup::whereNull('deleted')->where('id', $request->route('id'))->first();
@@ -136,6 +144,38 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    public function magazinPage(Request $request)
+    {
+        $selectPage8 = Page::whereNull('deleted')->where('id', 8)->first(); // магазин
+        $selectProductGroups = ProductGroup::whereNull('deleted')
+            ->with('brand')
+            ->get();
+        $selectBrands = Brand::whereNull('deleted')->get();
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateMagazin')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', $selectPage8->meta_title)
+            ->with('meta_keywords', $selectPage8->meta_keywords)
+            ->with('meta_description', $selectPage8->meta_description)
+
+            ->with('page', $selectPage8)
+            ->with('brands', $selectBrands->toArray())
+            ->with('productGroups', $selectProductGroups->toArray());
+    }
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function articlesPage(Request $request)
     {
         $select = Article::whereNull('deleted');
@@ -157,6 +197,10 @@ class HomeController extends Controller
             ->with('articles', $select->toArray());
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function pagePage(Request $request)
     {
         $selectPage = Page::whereNull('deleted')->where('id', $request->route('id'))->first();
@@ -175,6 +219,11 @@ class HomeController extends Controller
 
             ->with('page', $selectPage);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function articlePage(Request $request)
     {
         $selectArticle = Article::whereNull('deleted')->where('id', $request->route('id'))->first();
@@ -195,6 +244,10 @@ class HomeController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function cartPage(Request $request)
     {
         $selectCart = Cart::whereNull('deleted')
@@ -222,6 +275,7 @@ class HomeController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function addContactFromForm(Request $request)
     {
