@@ -19,7 +19,6 @@ $("#photo").change(function() {
     readURL(this, 'photo');
 });
 
-
 var showHideProductGroupOptions = function () {
     if (document.getElementById('brand_id') && document.getElementById('product_group_id')) {
         var brand_id = document.getElementById('brand_id').value;
