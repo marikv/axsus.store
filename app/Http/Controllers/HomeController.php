@@ -60,6 +60,10 @@ class HomeController extends Controller
         $selectPage5 = Page::whereNull('deleted')->where('id', 5)->first();//5 - Вопросы/Ответы (FAQ)
         $selectLastArticles = Article::whereNull('deleted')->orderBy('id', 'desc')->paginate(4);
         $forFooterAndMenu = $this->forFooterAndMenu();
+        $selectProductGroups = ProductGroup::whereNull('deleted')
+            ->where('show_on_homepage', 1)
+            ->orderBy('order_by', 'asc')
+            ->get();
 
         return view('templateLandingPage')
 
@@ -79,6 +83,7 @@ class HomeController extends Controller
             ->with('page5', $selectPage5)
             ->with('lastArticles', $selectLastArticles)
             ->with('carousels', $selectCarousels)
+            ->with('productGroups', $selectProductGroups)
             ->with('faqs', $selectFaqs)
             ->with('brands', $selectBrands);
     }

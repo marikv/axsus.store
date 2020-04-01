@@ -46,11 +46,25 @@
                 <div class="modal-body">
                     <form method="post" id="itemForm" enctype="multipart/form-data" action="/adm/addOrSaveProductGroup">
                         <input type="hidden" id="id" name="id" value="0"/>
-                        <div class="form-group">
-                            <label for="photo">изображение записи</label>
-                            <div>
-                                <img id="photo_img" src="/uploads/no-image.png" style="height: 90px;"/>
-                                <input type="file" name="photo" id="photo" placeholder=""/>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label for="photo">изображение записи</label>
+                                    <div>
+                                        <img id="photo_img" src="/uploads/no-image.png" style="height: 90px;"/>
+                                        <input type="file" name="photo" id="photo" placeholder=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+
+                                    <label for="name">На главную страницу (HomePage)</label>
+                                    <select class="form-control" name="show_on_homepage" id="show_on_homepage">
+                                            <option value="0">Нет</option>
+                                            <option value="1">Да</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,6 +128,7 @@
             <th scope="col" data-col="photo" style="width: 200px;">фото</th>
             <th scope="col" data-col="name">Наименование</th>
             <th scope="col" data-col="mini_description">Краткое описание</th>
+            <th scope="col" data-col="show_on_homepage" style="width: 130px;">На глав. стр.</th>
             <th scope="col" data-col="order_by" style="width: 50px;">Сорт.</th>
             <th scope="col" data-col="actions" style="width: 150px;"></th>
         </tr>
@@ -126,6 +141,7 @@
                 <td><img src="{{ $row['photo'] ?: 'no-image.png' }}" style="height: 70px;"/></td>
                 <td>{{ $row['name'] }}</td>
                 <td>{{ $row['mini_description'] }}</td>
+                <td>{{ ($row['show_on_homepage'] ? 'Да' : '') }}</td>
                 <td>{{ $row['order_by'] }}</td>
                 <td>
                     <button class="btn btn-success" onclick="editItem({{json_encode($row)}})">

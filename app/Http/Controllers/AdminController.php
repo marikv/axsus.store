@@ -12,6 +12,7 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductGroup;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -251,9 +252,9 @@ class AdminController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function addOrSaveBrand(Request $request)
+    public function addOrSaveBrand(Request $request) :JsonResponse
     {
         try{
 
@@ -293,9 +294,9 @@ class AdminController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function addOrSaveProductGroup(Request $request)
+    public function addOrSaveProductGroup(Request $request) :JsonResponse
     {
         try{
 
@@ -320,6 +321,7 @@ class AdminController extends Controller
                 $model->meta_keywords = $request->meta_keywords;
                 $model->meta_description = $request->meta_description;
                 $model->order_by = $request->order_by;
+                $model->show_on_homepage = $request->show_on_homepage;
 
                 $model->save();
                 return response()->json(['success' => true, 'data' => ['id' => $model->id]]);

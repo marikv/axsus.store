@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $meta_title
  * @property string $meta_keywords
  * @property boolean $deleted
+ * @property boolean $show_on_homepage
  *
  *
  */
