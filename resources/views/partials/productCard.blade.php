@@ -1,7 +1,7 @@
 <article>
     <div class="card-product__horizontal row">
         <div class="col-md-2">
-            <img src="{{ $product['photo'] }}" style="height: 150px;" alt="{{ $product['name'] }}">
+            <img src="{{ $product['photo'] }}" style="max-height: 150px;max-width:100%;" alt="{{ $product['name'] }}">
         </div>
         <div class="col-md-8">
             <h4 class="text-primary">{{ $product['name'] }}</h4>
