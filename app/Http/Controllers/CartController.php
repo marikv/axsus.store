@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -98,6 +99,7 @@ class CartController extends Controller
                         'password' => Hash::make($password),
                     ]);
                     Auth::login($user, true);
+                    $this->sendAutoRegisterEmail($password);
                 }
                 $userModel = Auth::user();
                 $userModel->phone = $request->post('phone');
@@ -138,7 +140,7 @@ class CartController extends Controller
                 /* @var $cartModel Cart */
                 foreach ($cartModels as $cartModel) {
 
-                    $orderModel->sum += doubleval($cartModel->price) * doubleval($cartModel->count);
+                    $orderModel->sum += (float)$cartModel->price * (float)$cartModel->count;
 
                     $orderProductModel = new OrderProduct();
                     $orderProductModel->product_id = $cartModel->product_id;
@@ -153,6 +155,7 @@ class CartController extends Controller
                     $cartModelNew->save();
                 }
 
+                $this->sendOrderEmail($orderModel);
 
 
                 if ($orderModel->save()) {
