@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script src="https://kit.fontawesome.com/70d67aa69c.js" crossorigin="anonymous"></script>
+{{--    <script src="https://kit.fontawesome.com/70d67aa69c.js" crossorigin="anonymous"></script>--}}
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
@@ -20,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('fontawesome-free-5.13.0/css/all.min.css') }}" rel="stylesheet"/>
     <script src="/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -84,7 +85,7 @@
                 <a href="/adm/product-groups"><i class="fas fa-cubes"></i> Продукты</a>
                 <a href="/adm/products"><i class="fas fa-cubes"></i> Варианты поставки</a>
                 <a href="/adm/categories"><i class="fas fa-stream"></i> Категории</a>
-                <a href="/adm/clients"><i class="far fa-address-card"></i> Клиенты</a>
+                <a href="/adm/users"><i class="far fa-address-card"></i> Клиенты</a>
                 <a href="/adm/orders"><i class="fas fa-shopping-cart"></i> Заказы</a>
                 <a href="/adm/pages"><i class="far fa-file"></i> Страницы</a>
                 <a href="/adm/articles"><i class="fas fa-newspaper"></i> Новости</a>

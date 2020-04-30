@@ -109,4 +109,5 @@
         @endforeach
         </tbody>
     </table>
+    {!! $tablePagination !!}
 @endsection

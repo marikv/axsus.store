@@ -1,8 +1,8 @@
 @extends('layout')
 
 @section('content')
-    @include('partials.carousel')
 
+    @include('partials.carousel')
     <div>
         <h1 class=" text-center">{{$page1['name']}}</h1>
         <div class="container" >

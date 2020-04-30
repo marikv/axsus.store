@@ -50,8 +50,16 @@ class Controller extends BaseController
         }
     }
 
-    protected function sendOrderEmail(Order $orderModel)
+    protected function sendOrderEmail(Order $orderModel, array $orderProductModels)
     {
+        if (!Auth::guest()) {
+            $details = [
+                'type' => 'order',
+                'order' => $orderModel,
+                'orderProducts' => $orderProductModels,
+            ];
 
+            Mail::to(Auth::user()->email)->send(new \App\Mail\StoreSendMail($details));
+        }
     }
 }

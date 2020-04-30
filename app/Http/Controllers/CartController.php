@@ -138,6 +138,7 @@ class CartController extends Controller
                     ->whereNull('deleted')
                     ->get();
                 /* @var $cartModel Cart */
+                $orderProductModels = [];
                 foreach ($cartModels as $cartModel) {
 
                     $orderModel->sum += (float)$cartModel->price * (float)$cartModel->count;
@@ -153,9 +154,11 @@ class CartController extends Controller
                     $cartModelNew->bought = 1;
                     $cartModelNew->user_id = $userModel->id;
                     $cartModelNew->save();
+
+                    $orderProductModels[] = $orderProductModel;
                 }
 
-                $this->sendOrderEmail($orderModel);
+                $this->sendOrderEmail($orderModel, $orderProductModels);
 
 
                 if ($orderModel->save()) {

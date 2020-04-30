@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\User;
 use App\Models\Brand;
 use App\Models\Carousel;
 use App\Models\Category;
@@ -12,6 +15,7 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductGroup;
+use App\Setting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -45,7 +49,9 @@ class AdminController extends Controller
     {
         $select = Brand::whereNull('deleted');
         $select = $this->standartPagination($select, $request);
-        return view('admin.brands')->with('tableData', $select->toArray());
+        return view('admin.brands')
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
     }
 
 
@@ -76,7 +82,9 @@ class AdminController extends Controller
     {
         $select = Category::whereNull('deleted');
         $select = $this->standartPagination($select, $request);
-        return view('admin.categories')->with('tableData', $select->toArray());
+        return view('admin.categories')
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
     }
 
     /**
@@ -133,7 +141,8 @@ class AdminController extends Controller
         $select = Page::whereNull('deleted');
         $select = $this->standartPagination($select, $request);
         return view('admin.pages')
-            ->with('tableData', $select->toArray());
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
     }
 
     /**
@@ -153,12 +162,58 @@ class AdminController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    public function usersPage(Request $request)
+    {
+        $select = User::whereNull('deleted');
+        $select = $this->standartPagination($select, $request);
+        return view('admin.users')
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
+    }
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function ordersPage(Request $request)
+    {
+        $select = Order::whereNull('deleted')
+            ->with('orderProducts')
+            ->with('orderProducts.product');
+        $select = $this->standartPagination($select, $request);
+
+        Order::where('is_new', 1)->update([
+            'is_new' => 0
+        ]);
+
+        return view('admin.orders')
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function carouselsPage(Request $request)
     {
         $select = Carousel::whereNull('deleted');
         $select = $this->standartPagination($select, $request);
         return view('admin.carousels')
-            ->with('tableData', $select->toArray());
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function settingsPage(Request $request)
+    {
+        $select = Setting::whereNull('deleted');
+        $select = $select->paginate(9999999);
+        return view('admin.settings')
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
     }
 
     /**
@@ -170,7 +225,8 @@ class AdminController extends Controller
         $select = Faq::whereNull('deleted');
         $select = $this->standartPagination($select, $request);
         return view('admin.faqs')
-            ->with('tableData', $select->toArray());
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
     }
 
     /**
@@ -185,7 +241,8 @@ class AdminController extends Controller
             'read' => 1
         ]);
         return view('admin.contacts')
-            ->with('tableData', $select->toArray());
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
     }
 
 
@@ -451,6 +508,82 @@ class AdminController extends Controller
         }
 
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addOrSaveUser(Request $request)
+    {
+        try{
+
+            if ($request->name || $request->description) {
+
+                if (!empty($request->id)) {
+                    $model = User::find($request->id);
+                } else {
+                    $model = new User();
+                }
+//
+//                $fileName = $this->uploadPhoto($request,'photo');
+//                if (strlen($fileName)) {
+//                    $model->photo = $fileName;
+//                }
+//
+//                $model->name = $request->name;
+//                $model->mini_description = $request->mini_description;
+//                $model->description = $request->description;
+//                $model->meta_title = $request->meta_title;
+//                $model->meta_keywords = $request->meta_keywords;
+//                $model->meta_description = $request->meta_description;
+//
+//                $model->save();
+                return response()->json(['success' => true, 'data' => ['id' => $model->id]]);
+
+            }
+            throw new \Exception("Без имени");
+        }catch (\Exception $e) {
+            return response()->json(['success' => false, 'data' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addOrSaveOrder(Request $request)
+    {
+        try{
+
+            if ($request->name || $request->description) {
+
+                if (!empty($request->id)) {
+                    $model = Order::find($request->id);
+                } else {
+                    $model = new Order();
+                }
+//
+//                $fileName = $this->uploadPhoto($request,'photo');
+//                if (strlen($fileName)) {
+//                    $model->photo = $fileName;
+//                }
+//
+//                $model->name = $request->name;
+//                $model->mini_description = $request->mini_description;
+//                $model->description = $request->description;
+//                $model->meta_title = $request->meta_title;
+//                $model->meta_keywords = $request->meta_keywords;
+//                $model->meta_description = $request->meta_description;
+//
+//                $model->save();
+                return response()->json(['success' => true, 'data' => ['id' => $model->id]]);
+
+            }
+            throw new \Exception("Без имени");
+        }catch (\Exception $e) {
+            return response()->json(['success' => false, 'data' => $e->getMessage()]);
+        }
+    }
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -488,6 +621,40 @@ class AdminController extends Controller
         }
 
     }
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addOrSaveSetting(Request $request)
+    {
+        try{
+
+            if ($request->id) {
+
+                if (!empty($request->id)) {
+                    $model = Setting::find($request->id);
+                } else {
+                    $model = new Setting();
+                }
+
+//                $fileName = $this->uploadPhoto($request,'photo');
+//                if (strlen($fileName)) {
+//                    $model->photo = $fileName;
+//                }
+
+                $model->value = $request->value;
+
+                $model->save();
+                return response()->json(['success' => true, 'data' => ['id' => $model->id]]);
+
+            }
+            throw new \Exception("Без id");
+        }catch (\Exception $e) {
+            return response()->json(['success' => false, 'data' => $e->getMessage()]);
+        }
+
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -567,6 +734,21 @@ class AdminController extends Controller
     public function deleteArticle(Request $request)
     {
         $model = Article::where('id', $request->id)->first();
+        $model->deleted = 1;
+        $model->save();
+    }
+    public function deleteUser(Request $request)
+    {
+        $model = User::where('id', $request->id)->first();
+        $model->deleted = 1;
+        $model->save();
+    }
+    public function deleteOrder(Request $request)
+    {
+        $model = Order::where('id', $request->id)->first();
+        $model->deleted = 1;
+        $model->save();
+        $model = OrderProduct::where('order_id', $request->id)->first();
         $model->deleted = 1;
         $model->save();
     }
