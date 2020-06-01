@@ -21,7 +21,13 @@
                 <td>{{ $row['id'] }}</td>
                 <td>{{ $row['description'] }}</td>
                 <td>
-                    <input type="text" style="min-width: 500px;" id="settings_value_{{$row['id']}}" value="{{ $row['value'] }}">
+                    @if($row['type'] == 'textarea')
+                        <textarea
+                            style="min-width: 500px;min-height: 150px"
+                            id="settings_value_{{$row['id']}}">{{ htmlspecialchars_decode($row['value']) }}</textarea>
+                    @else
+                        <input type="text" style="min-width: 500px;" id="settings_value_{{$row['id']}}" value="{{ htmlspecialchars_decode($row['value']) }}">
+                    @endif
                 </td>
                 <td>
                     <button class="btn btn-success" onclick="saveSetting({{$row['id']}}, '{{ $row['type'] }}')">
@@ -37,10 +43,12 @@
 
     <script>
         var saveSetting = function (id, type) {
-            if (!type || type === 'text') {
-
+            var value = '';
+            if (type === 'image') {
+                value = document.getElementById('settings_value_' + id).value;
+            } else {
+                value = document.getElementById('settings_value_' + id).value;
             }
-            var value = document.getElementById('settings_value_' + id).value;
 
             $.ajax({
                 type: 'POST',

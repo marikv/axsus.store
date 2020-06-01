@@ -101,28 +101,71 @@
                 <ul class="list-unstyled quick-links">
                     <li><a href="/"><i class="fa fa-angle-double-right"></i>Главная</a></li>
                     <li><a href="/articles"><i class="fa fa-angle-double-right"></i>Новости</a></li>
-                    <li>@include('partials.search-box')</li>
+                    <li></li>
                 </ul>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                <div style="max-width: 300px;margin: auto;width: 100%;">@include('partials.search-box')</div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
                 <ul class="list-unstyled list-inline social text-center">
-                    <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/axsusProjects"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a target="_blank" href="https://www.instagram.com/axsus_projects/"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="mailto:info@axsus.ru" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                    @if(App\Models\Setting::getValue('facebook'))
+                        <li class="list-inline-item">
+                            <a href="mailto:{{ App\Models\Setting::getValue('facebook') }}" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                    @endif
+                    @if(App\Models\Setting::getValue('instagram'))
+                        <li class="list-inline-item">
+                            <a href="mailto:{{ App\Models\Setting::getValue('instagram') }}" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </li>
+                    @endif
+                    @if(App\Models\Setting::getValue('email1'))
+                        <li class="list-inline-item">
+                            <a href="mailto:{{ App\Models\Setting::getValue('email1') }}" target="_blank">
+                                <i class="fa fa-envelope"></i> {{ App\Models\Setting::getValue('email1') }}
+                            </a>
+                        </li>
+                    @endif
+                    @if(App\Models\Setting::getValue('email2'))
+                        <li class="list-inline-item">
+                            <a href="mailto:{{ App\Models\Setting::getValue('email2') }}" target="_blank">
+                                <i class="fa fa-envelope"></i> {{ App\Models\Setting::getValue('email2') }}
+                            </a>
+                        </li>
+                    @endif
+                    @if(App\Models\Setting::getValue('phone1'))
+                        <li class="list-inline-item">
+                            <a href="callto:{{ preg_replace('/[^0-9]/', '', App\Models\Setting::getValue('phone1')) }}" target="_blank">
+                                <i class="fa fa-phone"></i> {{ App\Models\Setting::getValue('phone1') }}
+                            </a>
+                        </li>
+                    @endif
+                    @if(App\Models\Setting::getValue('phone2'))
+                        <li class="list-inline-item">
+                            <a href="callto:{{ preg_replace('/[^0-9]/', '', App\Models\Setting::getValue('phone2')) }}" target="_blank">
+                                <i class="fa fa-phone"></i> {{ App\Models\Setting::getValue('phone2') }}
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <hr/>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                <p>
-                    Внимание! Все права защищены законодательством РФ законом «об авторском праве и смежных правах».
-                    Любое копирование и использование текстов, статей, фотографий или иных материалов разрешено только при активной ссылки на первоисточник.
-                    Прежде чем принимать какие-либо решения, необходимо проконсультироваться с профессионалом.
-                </p>
-                <p class="h6">&copy All right Reversed. <a class="text-green ml-2" href="https://www.axsus.ru" target="_blank">AXSUS PROJECTS </a></p>
+                {!! App\Models\Setting::getValue('footer') !!}
+{{--                <p>--}}
+{{--                    Внимание! Все права защищены законодательством РФ законом «об авторском праве и смежных правах».--}}
+{{--                    Любое копирование и использование текстов, статей, фотографий или иных материалов разрешено только при активной ссылки на первоисточник.--}}
+{{--                    Прежде чем принимать какие-либо решения, необходимо проконсультироваться с профессионалом.--}}
+{{--                </p>--}}
+{{--                <p class="h6">&copy All right Reversed. <a class="text-green ml-2" href="https://www.axsus.ru" target="_blank">AXSUS PROJECTS </a></p>--}}
             </div>
             <hr/>
         </div>

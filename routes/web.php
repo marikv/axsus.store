@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('homeIndex');
+Route::get('/search', 'HomeController@search')->name('search');
 Route::get('/articles', 'HomeController@articlesPage')->name('articlesPage');
 Route::get('/page/{id}', 'HomeController@pagePage')->where('id', '[0-9]+')->name('pagePage');
 Route::post('/send/addContactFromForm', 'HomeController@addContactFromForm')->name('addContactFromForm');
@@ -27,6 +28,10 @@ Route::get('/product-group/{id}', 'HomeController@productGroupPage')->where('id'
 Route::get('/category/{id}', 'HomeController@categoryPage')->where('id', '[0-9]+')->name('categoryPage');
 Route::get('/article/{id}', 'HomeController@articlePage')->where('id', '[0-9]+')->name('articlePage');
 Route::get('/magazin', 'HomeController@magazinPage')->name('magazinPage');
+Route::get('/orders', 'HomeController@ordersPage')->name('ordersPage');
+Route::get('/profile', 'HomeController@profilePage')->name('profilePage');
+Route::post('/profile/save', 'HomeController@profileSave')->name('profileSave');
+Route::post('/profile/savePassword', 'HomeController@profileSavePassword')->name('profileSavePassword');
 
 
 Route::post('/cart/{id}', 'CartController@addItem');
@@ -34,6 +39,8 @@ Route::post('/cart/checkout/{id}', 'CartController@addOrder');
 Route::get('/cart/{id}', 'CartController@getItems');
 Route::delete('/cart/{id}', 'CartController@deleteItem');
 Route::get('/cart-checkout', 'HomeController@cartPage')->name('cartPage');
+
+Route::get('/invoice/{id}.pdf', 'CartController@getInvoicePdf')->where('id', '[0-9]+')->name('getInvoicePdf');
 
 
 Route::get('/adm', 'AdminController@index')->name('admin');

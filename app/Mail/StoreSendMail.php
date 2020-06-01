@@ -46,12 +46,26 @@ class StoreSendMail extends Mailable
             /* @var $orderProducts array */
             $orderProducts = $this->details['orderProducts'];
 
-            return $this
+            $return = $this
                 ->subject(' Вы оформили заказ номер #'. $order->id .' на сайте ' . str_replace(['http://', 'https://'], '', Config::get('app.url')))
                 ->view('emails.order')
 //                ->with('orderProducts', $orderProducts)
 //                ->with('order', $order)
                 ;
+
+            if ($this->details['invoicePath']) {
+                $return = $return->attach($this->details['invoicePath'], [
+                    'as' => 'Счет.pdf',
+                    'mime' => 'application/pdf',
+                ]);
+            }
+            if ($this->details['contractPath']) {
+                $return = $return->attach($this->details['contractPath'], [
+                    'as' => 'Лицензионный_договор_АКСИСПроекты.doc',
+                    //'mime' => 'application/pdf',
+                ]);
+            }
+            return $return;
         }
 
 //        return $this

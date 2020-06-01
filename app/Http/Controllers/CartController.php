@@ -102,14 +102,30 @@ class CartController extends Controller
                     $this->sendAutoRegisterEmail($password);
                 }
                 $userModel = Auth::user();
-                $userModel->phone = $request->post('phone');
-                $userModel->name = $name;
-                $userModel->inn = $request->post('inn');
-                $userModel->kpp = $request->post('kpp');
-                $userModel->contactnoe_lico = $request->post('contactnoe_lico');
-                $userModel->raschetnyi_schet = $request->post('raschetnyi_schet');
-                $userModel->city = $request->post('city');
-                $userModel->address = $request->post('address');
+                if ($request->post('phone')) {
+                    $userModel->phone = $request->post('phone');
+                }
+                if ($name) {
+                    $userModel->name = $name;
+                }
+                if ($request->post('inn')) {
+                    $userModel->inn = $request->post('inn');
+                }
+                if ($request->post('kpp')) {
+                    $userModel->kpp = $request->post('kpp');
+                }
+                if ($request->post('contactnoe_lico')) {
+                    $userModel->contactnoe_lico = $request->post('contactnoe_lico');
+                }
+                if ($request->post('raschetnyi_schet')) {
+                    $userModel->raschetnyi_schet = $request->post('raschetnyi_schet');
+                }
+                if ($request->post('city')) {
+                    $userModel->city = $request->post('city');
+                }
+                if ($request->post('address')) {
+                    $userModel->address = $request->post('address');
+                }
                 $userModel->save();
 
                 $orderModel = new Order();
@@ -117,14 +133,14 @@ class CartController extends Controller
                 $orderModel->cart_id = $cart_id;
                 $orderModel->type = $request->post('type');
                 $orderModel->email = $email;
-                $orderModel->phone = $request->post('phone');
-                $orderModel->name = $name;
-                $orderModel->inn = $request->post('inn');
-                $orderModel->kpp = $request->post('kpp');
-                $orderModel->contactnoe_lico = $request->post('contactnoe_lico');
-                $orderModel->raschetnyi_schet = $request->post('raschetnyi_schet');
-                $orderModel->city = $request->post('city');
-                $orderModel->address = $request->post('address');
+                $orderModel->phone = $userModel->phone;//$request->post('phone');
+                $orderModel->name = $userModel->name;//$name;
+                $orderModel->inn = $userModel->inn;//$request->post('inn');
+                $orderModel->kpp = $userModel->kpp;//$request->post('kpp');
+                $orderModel->contactnoe_lico = $userModel->contactnoe_lico;// $request->post('contactnoe_lico');
+                $orderModel->raschetnyi_schet = $userModel->raschetnyi_schet;//$request->post('raschetnyi_schet');
+                $orderModel->city = $userModel->city;//$request->post('city');
+                $orderModel->address = $userModel->address;
                 $orderModel->comment = $request->post('comment');
                 $orderModel->discount = 0;
                 $orderModel->sum = 0;
@@ -158,7 +174,13 @@ class CartController extends Controller
                     $orderProductModels[] = $orderProductModel;
                 }
 
-                $this->sendOrderEmail($orderModel, $orderProductModels);
+                $invoicePath = '';
+                $contractPath = '';
+                if ($orderModel->inn && $orderModel->kpp) {
+                    $invoicePath = $this->generateInvoicePdf(Auth::user(), $orderModel);
+                    $contractPath = 'licence_contract_AXSUS_PROJECTS.doc';
+                }
+                $this->sendOrderEmail($orderModel, $orderProductModels, $invoicePath, $contractPath);
 
 
                 if ($orderModel->save()) {
@@ -168,5 +190,37 @@ class CartController extends Controller
         }
     }
 
+
+    public function getInvoicePdf(Request $request)
+    {
+
+        $order_id = $request->route('id');
+
+        if (!Auth::guest() && $order_id) {
+            $orderModel = Order::findOrFail($order_id);
+            if ($orderModel->user_id === Auth::user()->id) {
+
+                $pathWithoutStorage = DIRECTORY_SEPARATOR . 'invoices' . DIRECTORY_SEPARATOR . $order_id .'.pdf';
+                $path = storage_path() . $pathWithoutStorage;
+
+                if (file_exists($path) && !$request->get('generate')) {
+                    $invoicePath = $pathWithoutStorage;
+                } else {
+                    $invoicePath = $this->generateInvoicePdf(Auth::user(), $orderModel);
+                }
+
+                $content = file_get_contents(storage_path() . $invoicePath);
+
+                header('Content-Type: application/pdf');
+                header('Content-Length: ' . strlen($content));
+                header('Content-Disposition: inline; filename="'.$order_id.'.pdf"');
+                header('Cache-Control: private, max-age=0, must-revalidate');
+                header('Pragma: public');
+                ini_set('zlib.output_compression','0');
+
+                die($content);
+            }
+        }
+    }
 
 }

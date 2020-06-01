@@ -1,11 +1,30 @@
+<? $rand = rand(0, 9999); ?>
 <div class="form-group form-search flex-center justify-content-center">
-    <meta itemprop="target" content="/search?q={q}">
-    <input name="q" value="" class="form-control form-control-search" placeholder="Поиск"
-           itemprop="query-input">
-    <button type="submit" name="button" class="btn btn-white btn-round btn-submit">
-        <img src="{{asset('img/icons/search-2.svg')}}" style="height: 18px">
-    </button>
+    <form action="/search">
+        <meta itemprop="target" content="/search?q={q}">
+        <input name="q"
+               id="q<?=$rand?>"
+               class="form-control form-control-search"
+               placeholder="Поиск"
+               value="<?=$_GET['q']?>"
+               itemprop="query-input">
+        <button type="submit"
+                id="searchSubmit<?=$rand?>"
+                class="btn btn-white btn-round btn-submit">
+            <img src="{{asset('img/icons/search-2.svg')}}" style="height: 18px">
+        </button>
+    </form>
 </div>
+<script>
+    var input = document.getElementById("q<?=$rand?>");
+
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("searchSubmit<?=$rand?>").click();
+        }
+    });
+</script>
 
 <style>
     .form-search {

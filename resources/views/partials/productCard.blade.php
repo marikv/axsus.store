@@ -1,4 +1,4 @@
-<article>
+<article style="width: 100%;">
     <div class="card-product__horizontal row">
         <div class="col-md-2">
             <img src="{{ $product['photo'] }}" style="max-height: 150px;max-width:100%;" alt="{{ $product['name'] }}">

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static self whereNull(string $column_name)
  * @method max(string $column_name)
  * @property integer $id
+ * @property \DateTime $created_at
  * @property integer $user_id
  * @property string|null $cart_id
  * @property integer $type

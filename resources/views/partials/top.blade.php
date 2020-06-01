@@ -11,21 +11,38 @@
                         </a>
                     </td>
                     <td style="vertical-align: bottom;"  >
-                        <a target="_blank" href="https://www.facebook.com/axsusProjects"><i class="fa fa-facebook"></i></a>
+
+                        @if(App\Models\Setting::getValue('facebook'))
+                            <a href="mailto:{{ App\Models\Setting::getValue('facebook') }}" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        @endif
                     </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top;" >
-                        <a target="_blank" href="https://www.instagram.com/axsus_projects/"><i class="fa fa-instagram"></i></a>
+                        @if(App\Models\Setting::getValue('instagram'))
+                            <a href="mailto:{{ App\Models\Setting::getValue('instagram') }}" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        @endif
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-lg-2 flex-center">
-            <a href="callto:84992133401">
-                8(499)213-34-01
+        <div class="col-lg-2 flex-center" style="flex-wrap: wrap;">
+            @if(App\Models\Setting::getValue('phone1'))
+            <a href="callto:{{ preg_replace('/[^0-9]/', '', App\Models\Setting::getValue('phone1')) }}">
+                {{ App\Models\Setting::getValue('phone1') }}
             </a>
+            @endif
+            @if(App\Models\Setting::getValue('phone2'))
+            <a href="callto:{{ preg_replace('/[^0-9]/', '', App\Models\Setting::getValue('phone2')) }}">
+                {{ App\Models\Setting::getValue('phone2') }}
+            </a>
+            @endif
+
         </div>
         <div class="col-lg-4 flex-center">
 
@@ -41,14 +58,15 @@
                             <img src="{{ asset('img/icons/ui-user.svg') }}" class="img20">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item"  href="{{ url('/home') }}">Личный кабинет</a>
-                            @if (!Auth::guest() && Auth::user()->role_id == 1)
-                            <a class="dropdown-item"  href="{{ url('/adm') }}">Админ-панель</a>
-                            @endif
+                            <a class="dropdown-item"  href="{{ url('/orders') }}">Мои заказы</a>
+                            <a class="dropdown-item"  href="{{ url('/profile') }}">Мои реквизиты</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 Выход
                             </a>
+                            @if (!Auth::guest() && Auth::user()->role_id == 1)
+                                <a class="dropdown-item"  href="{{ url('/adm') }}">Админ-панель</a>
+                            @endif
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>

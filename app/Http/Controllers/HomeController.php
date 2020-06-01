@@ -8,12 +8,16 @@ use App\Models\Carousel;
 use App\Models\Cart;
 use App\Models\Contact;
 use App\Models\Faq;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductGroup;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -88,6 +92,120 @@ class HomeController extends Controller
             ->with('brands', $selectBrands);
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function ordersPage(Request $request)
+    {
+        if (Auth::guest()) {
+            return redirect('/');
+        }
+
+        $select = Order::whereNull('deleted')
+            ->with('orderProducts')
+            ->with('orderProducts.product')
+            ->where('user_id', Auth::user()->id);
+        $select = $this->standartPagination($select, $request);
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateOrders')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', 'Мои заказы')
+            ->with('meta_keywords', '')
+            ->with('meta_description', '')
+
+            ->with('tableData', $select->toArray())
+            ->with('tablePagination', $select->appends($request->all())->links());
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function profilePage(Request $request)
+    {
+        if (Auth::guest()) {
+            redirect('/');
+        }
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateProfile')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', 'Мои реквизиты')
+            ->with('meta_keywords', '')
+            ->with('meta_description', '');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        $selectProducts = null;
+        $selectProducts2 = null;
+
+        if ($q) {
+
+            $selectProducts = Product::whereNull('deleted')
+                ->where('name', 'like', '%' . $q . '%')
+                ->get();
+
+            $ids = [];
+            foreach ($selectProducts as $product) {
+                $ids[] = $product->id;
+            }
+
+            $selectProducts2 = Product::whereNull('deleted')
+                ->where('article', 'like', $q . '%')
+                ->whereNotIn('id', $ids)
+                ->get();
+
+            foreach ($selectProducts2 as $product) {
+                $ids[] = $product->id;
+            }
+
+            $selectProducts3 = Product::whereNull('deleted')
+                ->where('mini_description', 'like', '%' . $q . '%')
+                ->whereNotIn('id', $ids)
+                ->get();
+        }
+
+
+        $forFooterAndMenu = $this->forFooterAndMenu();
+
+        return view('templateSearchResults')
+
+            ->with('LaravelShopCartId', $forFooterAndMenu['LaravelShopCartId'])
+            ->with('allPages', $forFooterAndMenu['allPages'])
+            ->with('allBrands', $forFooterAndMenu['allBrands'])
+            ->with('allProducts', $forFooterAndMenu['allProducts'])
+
+            ->with('meta_title', 'Результаты поиска')
+            ->with('meta_keywords', '')
+            ->with('meta_description', '')
+
+            ->with('products', $selectProducts)
+            ->with('products3', $selectProducts3)
+            ->with('products2', $selectProducts2);
+    }
 
     /**
      * @param Request $request
@@ -314,6 +432,60 @@ class HomeController extends Controller
 
         }
         return response()->json(['success'=>false, 'data' => $error]);
+    }
+
+
+
+
+    public function profileSave(Request $request)
+    {
+        if ($request->method() === 'POST' && $request->post('email') && !Auth::guest()) {
+
+            $userModel = Auth::user();
+
+            if ($request->post('name')) {
+                $userModel->name = $request->post('name');
+            }
+            if ($request->post('email')) {
+                $userModel->email = $request->post('email');
+            }
+            if ($request->post('phone')) {
+                $userModel->phone = $request->post('phone');
+            }
+            if ($request->post('inn')) {
+                $userModel->inn = $request->post('inn');
+            }
+            if ($request->post('kpp')) {
+                $userModel->kpp = $request->post('kpp');
+            }
+            if ($request->post('contactnoe_lico')) {
+                $userModel->contactnoe_lico = $request->post('contactnoe_lico');
+            }
+            if ($request->post('raschetnyi_schet')) {
+                $userModel->raschetnyi_schet = $request->post('raschetnyi_schet');
+            }
+            if ($request->post('city')) {
+                $userModel->city = $request->post('city');
+            }
+            if ($request->post('address')) {
+                $userModel->address = $request->post('address');
+            }
+            $userModel->save();
+
+            return response()->json(['success' => true, 'data' => 'success']);
+        }
+    }
+
+    public function profileSavePassword(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'string', 'min:8'],
+            'password_confirmation' => ['same:password'],
+        ]);
+
+        if (!Auth::guest()) {
+            Auth::user()->update(['password'=> Hash::make($request->password)]);
+        }
     }
 
     private function sendEmailToAdmin($subj)

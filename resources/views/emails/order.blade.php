@@ -17,12 +17,15 @@
             на сайте <?=str_replace(['http://', 'https://', 'www.'], '',  \Illuminate\Support\Facades\Config::get('app.url'))?>
         </h3>
 
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
             <tr>
-                <td style="padding: 2px 15px;font-size: 15px;color: rgb(113,113,113);  font-weight: bold;border-bottom: 1px solid #d0d0d0;text-align: left;min-width: 500px;">
+                <td style="padding: 2px 15px;font-size: 15px;color: rgb(113,113,113);font-weight: bold;border-bottom: 1px solid #d0d0d0;text-align: left;width: 100px;">
+                    Артикул
+                </td>
+                <td style="padding: 2px 15px;font-size: 15px;color: rgb(113,113,113);  font-weight: bold;border-bottom: 1px solid #d0d0d0;text-align: left;">
                     Название товара
                 </td>
-                <td style="padding: 2px 15px;font-size: 15px;color: rgb(113,113,113);  font-weight: bold;border-bottom: 1px solid #d0d0d0;text-align: right;min-width: 100px;">
+                <td style="padding: 2px 15px;font-size: 15px;color: rgb(113,113,113);  font-weight: bold;border-bottom: 1px solid #d0d0d0;text-align: right;width: 100px;">
                     Цена
                 </td>
             </tr>
@@ -33,7 +36,10 @@
             ?>
             <tr>
                 <td style="padding: 2px 15px;font-size: 13px;color: rgb(113,113,113);  font-weight: normal;border-bottom: 1px solid #d0d0d0;text-align: left;">
-                    <?php echo $orderProduct->product_id; ?>
+                    <?php echo $orderProduct->product->article; ?>
+                </td>
+                <td style="padding: 2px 15px;font-size: 13px;color: rgb(113,113,113);  font-weight: normal;border-bottom: 1px solid #d0d0d0;text-align: left;">
+                    <?php echo $orderProduct->product->name; ?>
                 </td>
                 <td style="padding: 2px 15px;font-size: 13px;color: rgb(113,113,113);  font-weight: normal;border-bottom: 1px solid #d0d0d0;text-align: right;">
                     <?php echo $orderProduct->count . ' x ' . $orderProduct->price; ?> руб.
@@ -43,7 +49,7 @@
             }
             ?>
             <tr>
-                <td style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
+                <td colspan="2" style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
                     Доставка:
                 </td>
                 <td style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
@@ -51,7 +57,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
+                <td colspan="2" style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
                     Сумма заказа:
                 </td>
                 <td style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
@@ -59,7 +65,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
+                <td colspan="2" style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">
                     ИТОГО:
                 </td>
                 <td style="padding: 2px 15px;font-size: 16px;color: rgb(113,113,113);  font-weight: bold;border-bottom: none;text-align: right;">

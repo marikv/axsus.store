@@ -15,7 +15,7 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductGroup;
-use App\Setting;
+use App\Models\Setting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -642,7 +642,7 @@ class AdminController extends Controller
 //                    $model->photo = $fileName;
 //                }
 
-                $model->value = $request->value;
+                $model->value = htmlspecialchars($request->value);
 
                 $model->save();
                 return response()->json(['success' => true, 'data' => ['id' => $model->id]]);

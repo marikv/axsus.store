@@ -74,11 +74,21 @@
                 </td>
                 <td>{{ (float)$row['sum'] }} руб.</td>
                 <td>
-{{--                    <button class="btn btn-success" onclick="editItem({{json_encode($row)}})">--}}
-{{--                        <i class="fas fa-pencil-alt"></i>--}}
-{{--                    </button>--}}
-                    <button class="btn btn-danger" onclick="deleteItem('User', {{ $row['id'] }})"><i
-                            class="far fa-trash-alt"></i></button>
+                    <a style="width: 40px;" alt="Редактировать" title="Редактировать" class="btn btn-success" href="javascript:void(0)" onclick="editOrderInfo({{json_encode($row)}})">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+
+                    <a style="width: 40px;" alt="удалить" title="удалить" class="btn btn-danger" href="javascript:void(0)" onclick="deleteItem('User', {{ $row['id'] }})">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+
+                    <a style="width: 40px;" alt="Счет" title="Счет" class="btn btn-primary" target="_blank" href="/invoice/{{$row['id']}}.pdf">
+                        <i class="far fa-file-pdf"></i>
+                    </a>
+
+                    <a style="width: 40px;" alt="Новый Счет" title="Новый Счет" class="btn btn-primary" target="_blank" href="/invoice/{{$row['id']}}.pdf?generate=1">
+                        <i class="far fa-file-pdf"></i>
+                    </a>
                 </td>
             </tr>
 
