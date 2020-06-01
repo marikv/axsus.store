@@ -6,7 +6,7 @@
                id="q<?=$rand?>"
                class="form-control form-control-search"
                placeholder="Поиск"
-               value="<?=$_GET['q']?>"
+               value="<?=($_GET['q'] ?? '')?>"
                itemprop="query-input">
         <button type="submit"
                 id="searchSubmit<?=$rand?>"
