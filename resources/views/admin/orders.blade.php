@@ -36,6 +36,8 @@
                 <td>{{ $row['id'] }}</td>
                 <td scope="col" data-col="">
                     {!! ((int)$row['type'] == 1 ? 'Быстрый заказ' : 'Самостоятельный заказ') !!}
+                    <br>
+                    {!! \Carbon\Carbon::parse($row['created_at'])->format('d.m.Y H:i') !!}
                 </td>
                 <td>{!! ($row['name'] ? $row['name'] .'<br>' : '') !!}
                     {!! ($row['email'] ? '<span class="lbl">email:</span> ' . $row['email'] .'<br>' : '') !!}
